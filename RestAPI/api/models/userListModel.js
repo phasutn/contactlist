@@ -1,5 +1,6 @@
 'use strict'
 var mongoose = require('mongoose')
+var md5 = require('md5')
 var Schema = mongoose.Schema
 
 var UserSchema = new Schema({
@@ -17,5 +18,11 @@ var UserSchema = new Schema({
 
     },
 })
+
+UserSchema.pre('save', function(next) {
+    this.password = md5(this.password);
+    next();
+});
+
 
 module.exports = mongoose.model('Users', UserSchema)
