@@ -5,22 +5,41 @@
         <h1>LOGIN</h1><br/>
           <div>
             <p class="info" placeholder="Username">USERNAME</p>
-            <input type="text">
+            <input v-model="username" type="text">
             <p class="info" placeholder="Password">PASSWORD</p>
-            <input type="password">
+            <input v-model="password" type="password">
           </div><br/>
           <h5>NO ACCOUNT? <a href="/register">SIGN UP HERE</a></h5>          <br/>
-        <button type="submit" @click="goToContact()">SIGN IN</button>
+        <button type="submit" @click="login">SIGN IN</button>
       </div>
     </div>
   </main>
 </template>
 
 <script>
+import axios from 'axios'
+import md5 from 'md5'
+
 export default{
+  data() {
+    return {
+      username: '',
+      password: ''
+    }
+  },
   methods: {
     goToContact() {
       this.$router.push('/contactlist');
+    },
+  async login() {
+    //vulnerability if not provided with password (listAllUsers default to list everything)
+      let result = axios.get(`http://localhost:5001/users?username=${this.username}&password=${this.password}`)
+      .then((result) => {
+        console.log(result.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
     },
   },
 };

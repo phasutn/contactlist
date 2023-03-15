@@ -7,7 +7,10 @@ module.exports = function(app){
         .post(userList.createAUser)
 
     app.route('/users/:userId')
-        .get(userList.readAUser)
+        .get(userList.readAUserID)
         .delete(userList.deleteAUser)
         .post(userList.updateAUser)
+
+    app.route('/users/:username/:password')
+        .get(userList.readAUser)
 }
