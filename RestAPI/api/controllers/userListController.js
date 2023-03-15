@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
 User = mongoose.model('Users')
 
 exports.listAllUsers = function(req, res){
-    var query = { sort: { firstName: 1 } }
+    var query = { sort: { username: 1 } }
     User.find({}, null, query, function(err, user){
         if(err) throw err
         //console.log(user)
