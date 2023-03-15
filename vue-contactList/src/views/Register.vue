@@ -5,9 +5,9 @@
         <h1>REGISTER</h1><br/>
           <div>
             <p class="info">USERNAME</p>
-            <input type="text" placeholder="" v-model="User.username"/>
+            <input type="text" placeholder="Username" v-model="User.username"/>
             <p class="info">PASSWORD</p>
-            <input type="password" placeholder="" v-model="User.password"/>
+            <input type="password" placeholder="Password" v-model="User.password"/>
           </div><br/>
         <button type="submit" @click="addToAPI">REGISTER</button>
       </div>
@@ -68,7 +68,7 @@ p.info {
 input[type='text'],
 input[type='password']{
   padding: 5px 7px 4px;
-  border-radius: 12px 12px 12px 12px;
+  border-radius: 8px 8px 8px 8px;
 }
 
 button[type='submit']{
