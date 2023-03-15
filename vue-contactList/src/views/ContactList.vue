@@ -7,7 +7,7 @@
           <table>
                 <tr>
                   <th>Username</th>
-                  <th>Password</th>
+                  <th>Password [MD5]</th>
                 </tr>
             <tbody>
                 <tr v-for="auser in filterUsers" v-bind:key="auser.id">
@@ -85,6 +85,10 @@ export default {
 
 .list{
   display: block;
+}
+
+th{
+  text-decoration: underline 3px;
 }
 
 button{
