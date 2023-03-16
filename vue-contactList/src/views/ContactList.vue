@@ -7,21 +7,17 @@
           <table>
                 <tr>
                   <th>Username</th>
-                  <th>Password</th>
+                  <th>Password [MD5]</th>
                 </tr>
             <tbody>
-                <!-- <tr v-for="auser in filterUsers" v-bind:key="auser.id"> -->
-                  <tr>
-                  <!-- <td>{{auser.firstName}}</td>
-                  <td>{{auser.lastName}}</td>
-                  <td>{{auser.email}}</td> -->
-                  <td>usernameeeeeeeeeeeee</td>
-                  <td>passworddddddddddddd</td>
+                <tr v-for="auser in filterUsers" v-bind:key="auser.id">
+                  <td>{{auser.username}}</td>
+                  <td>{{auser.password}}</td>
                   <td>
                     <!-- <router-link :to="{path:'updateuser' , name: 'UpdateUser', params: {userId: auser._id}}">
                       <button type="button" class="btn btn-warning">Edit</button>
-                    </router-link>
-                    <button @click="deleteUser(auser._id)" class="btn btn-danger">Delete</button> -->
+                    </router-link> -->
+                    <button @click="deleteUser(auser._id)" class="btn btn-danger">Delete</button>
                   </td>
                 </tr>
             </tbody>
@@ -56,7 +52,7 @@ export default {
   computed :{
     filterUsers: function(){
       return this.Users.filter((user)=>{
-        return user.firstName.match(this.search)
+        return user.username.match(this.search)
       })
     }
   },
@@ -64,7 +60,7 @@ export default {
     deleteUser(UserId) {
       axios.delete("http://127.0.0.1:5001/users/"+UserId)
       .then((response)=>{
-        console.log('Delete User Id: '+UserId)
+        console.log('Delete User Id: ' + UserId)
       })
       .catch((error)=>{
         console.log(error)
@@ -89,6 +85,28 @@ export default {
 
 .list{
   display: block;
+}
+
+th{
+  text-decoration: underline 3px;
+}
+
+button{
+  background: black;
+  color: white;
+  font-family: "Tilt Warp";
+  width: 60px;
+  height: 30px;
+  border-radius: 12px 12px 12px 12px;
+}
+
+button:active{
+  background: none;
+  color: black;
+  font-family: "Tilt Warp";
+  width: 60px;
+  height: 30px;
+  border-radius: 12px 12px 12px 12px;
 }
 
 </style>

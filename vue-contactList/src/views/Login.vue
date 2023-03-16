@@ -4,9 +4,9 @@
       <div class="loginPanel">
         <h1>LOGIN</h1><br/>
           <div>
-            <p class="info">USERNAME</p>
+            <p class="info" placeholder="Username">USERNAME</p>
             <input type="text">
-            <p class="info">PASSWORD</p>
+            <p class="info" placeholder="Password">PASSWORD</p>
             <input type="password">
           </div><br/>
           <h5>NO ACCOUNT? <a href="/register">SIGN UP HERE</a></h5>          <br/>
@@ -53,7 +53,7 @@ p.info {
 input[type='text'],
 input[type='password']{
   padding: 5px 7px 4px;
-  border-radius: 12px 12px 12px 12px;
+  border-radius: 8px 8px 8px 8px;
 }
 
 button[type='submit']{
