@@ -6,8 +6,15 @@ var md5 = require('md5')
 User = mongoose.model('Users')
 
 exports.listAllUsers = function(req, res){
+    const username = req.query.username;
 
     var query = { sort: { username: 1 } }
+
+    //for finding with just username
+    //used for registration
+    if(username){
+        query = {username: username}
+    }
 
     User.find(query, function(err, user){
         if(err) throw err
