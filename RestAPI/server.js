@@ -13,7 +13,8 @@ port = process.env.PORT || 5001
 mongoose = require('mongoose')
 mongoose.set('strictQuery', true);
 
-User = require('./api/models/userListModel')
+User = require('./api/models/ListModel')
+Contact = require('./api/models/ListModel')
 
 bodyParser = require('body-parser')
 
@@ -23,12 +24,17 @@ mongoose.connect('mongodb://127.0.0.1/UserDb', function(error){
     console.log('Successfully connected');
 })
 
+mongoose.createConnection('mongodb://127.0.0.1/ContactDB', function(error){
+    if(error) throw error
+    console.log('Successfully connected');
+})
 
 
 
 
-var routes = require('./api/routes/userListRoutes')
+
+var routes = require('./api/routes/ListRoutes')
 routes(app)
 
 app.listen(port)
-console.log('User List API started on : '+ port)
+console.log('List API started on : '+ port)
