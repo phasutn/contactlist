@@ -13,4 +13,7 @@ module.exports = function(app){
 
     app.route('/users/:username/:password')
         .get(userList.readAUser)
+
+    app.route('/auser')
+        .get(userList.matchAUser)
 }

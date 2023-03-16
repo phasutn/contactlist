@@ -6,6 +6,17 @@ var md5 = require('md5')
 User = mongoose.model('Users')
 
 exports.listAllUsers = function(req, res){
+
+    var query = { sort: { username: 1 } }
+
+    User.find(query, function(err, user){
+        if(err) throw err
+        //console.log(user)
+        res.json(user)
+    })
+}
+
+exports.matchAUser = function(req, res){
     const username = req.query.username;
     const password = req.query.password;
 
@@ -19,23 +30,20 @@ exports.listAllUsers = function(req, res){
             username: username,
             password: md5(password)
         };
-      }
-
-
-    if(username || password){
+    }
+    else{
         query = {
             username: null,
             password: null
         };
     }
-    
-
     User.find(query, function(err, user){
         if(err) throw err
         //console.log(user)
         res.json(user)
     })
 }
+
 
 exports.createAUser = function(req, res){
     var newUser = new User(req.body)

@@ -36,12 +36,12 @@ export default{
       let user_error = document.getElementById('username_error')
       let pass_error = document.getElementById('password_error')
       if(this.username = ""){
-        
+        user_error.style.display = "block"
       }
       if(this.password = ""){
-        
+        pass_error.style.display = "block";
       }
-      let result = axios.get(`http://localhost:5001/users?username=${this.username}&password=${this.password}`)
+      let result = axios.get(`http://localhost:5001/auser?username=${this.username}&password=${this.password}`)
       .then((result) => {
         console.log(result.data);
       })
@@ -65,12 +65,14 @@ p.info {
   margin-top: 10%;
 }
 
-.input_error{
+#username_error,
+#password_error{
   margin-left: 3px;
   opacity: 60%;
   font-size: 80%;
   text-align: left;
   color: red;
+  display: none;
 }
 
 </style>
