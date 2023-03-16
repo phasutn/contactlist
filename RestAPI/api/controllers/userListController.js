@@ -21,6 +21,15 @@ exports.listAllUsers = function(req, res){
         };
       }
 
+
+    if(username || password){
+        query = {
+            username: null,
+            password: null
+        };
+    }
+    
+
     User.find(query, function(err, user){
         if(err) throw err
         //console.log(user)
