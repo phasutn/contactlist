@@ -6,13 +6,13 @@
           <div>
             <p class="info" >USERNAME</p>
             <input v-model="username" type="text" placeholder="Username">
-            <div id="username_empty" class="input_error" >Invalid Username</div>
-            <div id="username_incorrect" class="input_error" >Incorrect username or password</div>
+            <div id="username_empty" >Invalid Username</div>
+            <div id="username_incorrect" >Incorrect username or password</div>
             <p class="info" placeholder="Password">PASSWORD</p>
             <input v-model="password" type="password" placeholder="Password">
             <div id="password_empty" class="input_error">Invalid Password</div>
           </div><br/>
-          <h5>NO ACCOUNT? <a href="/register">SIGN UP HERE</a></h5>          <br/>
+          <h5>NO ACCOUNT? <a href="/register">SIGN UP HERE</a></h5><br/>
         <button type="submit" @click="login">SIGN IN</button>
       </div>
     </div>
