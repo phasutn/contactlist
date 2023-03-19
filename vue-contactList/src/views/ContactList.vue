@@ -7,17 +7,28 @@
           <table>
                 <tr>
                   <th>Info</th>
-                  <th>Info</th>
                 </tr>
             <tbody>
                 <tr v-for="acontact in filterContacts" v-bind:key="acontact.id">
-                  <td>{{acontact.firstname}}</td>
-                  <td>{{acontact.lastname}}</td>
+                  <img v-bind:src=acontact.imageUrl style="max-width: 00px; max-height: 300px;"/>
+                  <tr>
+                    <td>{{acontact.firstname}}</td>
+                    <td>{{acontact.lastname}}</td><br>
+                  </tr>
+                  <tr>
+                    <td>Mobile:</td><td>{{acontact.mobileNo}}</td><br>
+                  </tr>
+                  <tr>
+                    <td>Email:</td><td>{{acontact.email}}</td><br>
+                  </tr>
+                  <tr>
+                    <td>Facebook:</td><td>{{acontact.facebook}}</td>
+                  </tr>
                   <td>
                     <router-link :to="{path:'/contactupdate' , name: 'contactupdate', params: {contactId: acontact._id}}">
-                      <button type="button" class="btn btn-warning">Edit</button>
-                    </router-link >updateuser
-                    <button @click="deleteContact(acontact._id)" class="btn btn-danger">Delete</button>
+                      <button type="button" class="btn btn-warning">Update User</button>
+                    </router-link >
+                    <button @click="deleteContact(acontact._id)" class="btn btn-danger">Delete User</button>
                   </td>
                 </tr>
             </tbody>
