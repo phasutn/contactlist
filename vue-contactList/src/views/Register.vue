@@ -6,8 +6,11 @@
           <div>
             <p class="info">USERNAME</p>
             <input type="text" placeholder="Username" v-model="User.username"/>
+            <div id="username_empty" >Invalid Username</div>
+            <div id="username_exists" >Username already exists</div>
             <p class="info">PASSWORD</p>
             <input type="password" placeholder="Password" v-model="User.password"/>
+            <div id="password_empty" >Invalid Password</div>
           </div><br/>
         <button type="submit" @click="addToAPI">REGISTER</button>
       </div>
@@ -28,65 +31,50 @@ export default {
     }
   },
   methods: {
-    addToAPI() {
+    async addToAPI() {
+      let user_empty = document.getElementById('username_empty')
+      let pass_empty = document.getElementById('password_empty')
+      let user_exists = document.getElementById('username_exists')
       console.log(this.User)
-      axios.post('http://127.0.0.1:5001/users', this.User)
-      .then((response)=>{
-        console.log(response)
+
+      user_empty.style.display = (this.User.username.length == 0) ? "block" : "none";
+      pass_empty.style.display = (this.User.password.length == 0) ? "block" : "none";
+
+      if (user_empty.style.display == "block" || pass_empty.style.display == "block") {
+        return;
+      }
+
+      axios.get(`http://localhost:5001/users?username=${this.User.username}`)
+        .then((result) => {
+          //Check if username is unique
+          if (result.data.length != 0) {
+            user_exists.style.display = "block"
+            return
+          } else {
+            axios.post('http://127.0.0.1:5001/users', this.User)
+              .then((response) => {
+                console.log(response)
+                this.$router.push('/login')
+              })
+              .catch((error) => {
+                console.log(error)
+              })
+          }
       })
-      .catch((error)=>{
-        console.log(error)
-      })
-    }
+    },
   }
 }
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap');
 
-p.info {
-  margin-top: 10%;
-}
-
-.loginPanel{
-  margin-left:auto;
-  margin-right:auto;
-  width: 100%;
-  text-align: center;
-}
-
-.container{
-  display: flex;
-  font-family: "Tilt Warp";
-  color: black;
-  background-color: aliceblue;
-  border-radius: 16px 16px 16px 16px;
-  padding: 70px;
-}
-
-input[type='text'],
-input[type='password']{
-  padding: 5px 7px 4px;
-  border-radius: 8px 8px 8px 8px;
-}
-
-button[type='submit']{
-  background: black;
-  color: white;
-  font-family: "Tilt Warp";
-  width: 100px;
-  height: 30px;
-  border-radius: 12px 12px 12px 12px;
-}
-
-button[type='submit']:active{
-  background: none;
-  color: black;
-  font-family: "Tilt Warp";
-  width: 100px;
-  height: 30px;
-  border-radius: 12px 12px 12px 12px;
+#username_exists{
+  margin-left: 2px;
+  opacity: 60%;
+  text-align: left;
+  font-size: 85%;
+  color:red;
+  display: none;
 }
 
 </style>

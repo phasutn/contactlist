@@ -6,18 +6,29 @@
         <div class="list">
           <table>
                 <tr>
-                  <th>Username</th>
-                  <th>Password [MD5]</th>
+                  <th>Info</th>
                 </tr>
             <tbody>
-                <tr v-for="auser in filterUsers" v-bind:key="auser.id">
-                  <td>{{auser.username}}</td>
-                  <td>{{auser.password}}</td>
+                <tr v-for="acontact in filterContacts" v-bind:key="acontact.id">
+                  <img v-bind:src=acontact.imageUrl style="max-width: 00px; max-height: 300px;"/>
+                  <tr>
+                    <td>{{acontact.firstname}}</td>
+                    <td>{{acontact.lastname}}</td><br>
+                  </tr>
+                  <tr>
+                    <td>Mobile:</td><td>{{acontact.mobileNo}}</td><br>
+                  </tr>
+                  <tr>
+                    <td>Email:</td><td>{{acontact.email}}</td><br>
+                  </tr>
+                  <tr>
+                    <td>Facebook:</td><td>{{acontact.facebook}}</td>
+                  </tr>
                   <td>
-                    <!-- <router-link :to="{path:'updateuser' , name: 'UpdateUser', params: {userId: auser._id}}">
-                      <button type="button" class="btn btn-warning">Edit</button>
-                    </router-link> -->
-                    <button @click="deleteUser(auser._id)" class="btn btn-danger">Delete</button>
+                    <router-link :to="{path:'/contactupdate' , name: 'contactupdate', params: {contactId: acontact._id}}">
+                      <button type="button" class="btn btn-warning">Update User</button>
+                    </router-link >
+                    <button @click="deleteContact(acontact._id)" class="btn btn-danger">Delete User</button>
                   </td>
                 </tr>
             </tbody>
@@ -30,37 +41,38 @@
 
 <script>
 import axios from 'axios'
+
 export default {
-  name: 'Users',
+  name: 'Contacts',
   data() {
     return {
       search: '',
-      Users : [],
+      Contacts : [],
       uid: ''
     }
   },
   mounted() {
-    axios.get('http://127.0.0.1:5001/users')
+    axios.get('http://127.0.0.1:5001/contacts')
     .then((response)=>{
       console.log(response.data)
-      this.Users = response.data
+      this.Contacts = response.data
     })
     .catch((error)=>{
       console.log(error)
     })
   },
   computed :{
-    filterUsers: function(){
-      return this.Users.filter((user)=>{
-        return user.username.match(this.search)
+    filterContacts: function(){
+      return this.Contacts.filter((contact)=>{
+        return contact.firstname.match(this.search)
       })
     }
   },
   methods:{
-    deleteUser(UserId) {
-      axios.delete("http://127.0.0.1:5001/users/"+UserId)
+    deleteContact(contactId) {
+      axios.delete("http://127.0.0.1:5001/contacts/"+contactId)
       .then((response)=>{
-        console.log('Delete User Id: ' + UserId)
+        console.log('Delete Contact Id: ' + contactId)
       })
       .catch((error)=>{
         console.log(error)
@@ -72,41 +84,5 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap');
-
-.container{
-  display: flex;
-  font-family: "Tilt Warp";
-  color: black;
-  background-color: aliceblue;
-  border-radius: 16px 16px 16px 16px;
-  padding: 70px;
-}
-
-.list{
-  display: block;
-}
-
-th{
-  text-decoration: underline 3px;
-}
-
-button{
-  background: black;
-  color: white;
-  font-family: "Tilt Warp";
-  width: 60px;
-  height: 30px;
-  border-radius: 12px 12px 12px 12px;
-}
-
-button:active{
-  background: none;
-  color: black;
-  font-family: "Tilt Warp";
-  width: 60px;
-  height: 30px;
-  border-radius: 12px 12px 12px 12px;
-}
 
 </style>
