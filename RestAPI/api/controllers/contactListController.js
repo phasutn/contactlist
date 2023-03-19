@@ -15,7 +15,7 @@ exports.createAContact = function(req, res){
     var newContact = new Contact(req.body)
     console.log(req.body)
     newContact.save(function(err, contact){
-        if(err) console.log(err)
+        if(err) throw err
         res.json(contact)
     })
 }
@@ -46,7 +46,10 @@ exports.updateAContact = function(req, res){
     newContact = req.body
     console.log(newContact)
     Contact.findByIdAndUpdate(req.params.contactId, newContact, {new: true}, function(err, contact){
-        if(err) throw err
+        if(err) {
+            console.log(err)
+            throw err
+        }
         console.log(contact)
         res.json(contact)
     })
