@@ -27,7 +27,7 @@ exports.matchAUser = function(req, res){
     const username = req.query.username;
     const password = req.query.password;
 
-    var query = { sort: { username: 1 } }
+    let query = { sort: { username: 1 } }
 
     //if provide username and password with 
     //{link}/users?username={}&password={}

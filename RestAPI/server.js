@@ -21,12 +21,12 @@ bodyParser = require('body-parser')
 mongoose.Promise = global.Promise
 mongoose.connect('mongodb://127.0.0.1/UserDb', function(error){
     if(error) throw error
-    console.log('Successfully connected');
+    console.log('UserDB Successfully connected');
 })
 
-mongoose.createConnection('mongodb://127.0.0.1/ContactDB', function(error){
+mongoose.createConnection('mongodb://127.0.0.1/ContactDb', function(error){
     if(error) throw error
-    console.log('Successfully connected');
+    console.log('ContactDb Successfully connected');
 })
 
 

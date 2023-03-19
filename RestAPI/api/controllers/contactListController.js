@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
 Contact = mongoose.model('Contacts')
 
 exports.listAllContacts = function(req, res){
-    var query = { sort: { firstname: 1 } }
+    var query = { sort: { contactid: 1 } }
     Contact.find({}, null, query, function(err, contact){
         if(err) throw err
         //console.log(contact)

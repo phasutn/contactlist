@@ -23,6 +23,7 @@ module.exports = function(app){
         .post(contactList.createAContact)
 
     app.route('/contacts/:contactId')
+        .get(contactList.readAContact)
         .delete(contactList.deleteAContact)
         .post(contactList.updateAContact)
 }
