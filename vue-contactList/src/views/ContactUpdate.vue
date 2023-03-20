@@ -66,6 +66,23 @@ export default {
     }
   },
   mounted(){
+    //Authentication
+    axios.get('http://127.0.0.1:5001/loggedin', {
+      params: {
+        token: localStorage.getItem('AuthToken'),
+      }
+    })
+    .then((response) => {
+      console.log(response.data)
+    })
+    .catch((error) => {
+      console.log(error)
+      if(error.response.status && error.response.status == 401){
+        this.$router.push('/notloggedin');
+      }
+    })
+
+    //
     axios.get('http://127.0.0.1:5001/contacts/'+this.$route.params.contactId)
     .then((response)=>{
       console.log(response.data)

@@ -63,7 +63,6 @@ export default{
           //JWT in the localStorage so that it can be used
           //to identify this user as loggedin.
           localStorage.setItem('AuthToken', result.data.token);
-          console.log(localStorage.getItem('AuthToken'));
           this.$router.push('/contactlist');
         }
       })
