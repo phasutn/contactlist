@@ -1,8 +1,9 @@
+Point Tipok
 <template>
   <main>
-    <div class="container" id="contactlist">
+    <div id="contactlist">
       <div>
-        <h1 style="text-align:center">Contact List<br></h1>
+        <h1 style="text-align:center">CONTACT LIST<br></h1>
         <div class="list">
           <table>
             <tbody>
@@ -17,9 +18,9 @@
                       <div>Facebook: {{acontact.facebook}}</div>
                       <div>
                         <router-link :to="{path:'/contactupdate' , name: 'contactupdate', params: {contactId: acontact._id}}">
-                          <button type="button" class="btn btn-warning">Update User</button>
+                          <button type="button" class="btn btn-warning">UPDATE</button>
                         </router-link >
-                        <button @click="deleteContact(acontact._id)" class="btn btn-danger">Delete User</button>
+                        <button @click="deleteContact(acontact._id)" class="btn btn-danger">DELETE</button>
                       </div>
                     </div>
                   </div>
@@ -99,17 +100,16 @@ export default {
 .card {
   margin-bottom: 20px;
 }
-.container #contactlist{
+#contactlist {
   display: flex;
   font-family: "Tilt Warp";
   color: black;
   background-color: aliceblue;
   border-radius: 16px 16px 16px 16px;
-  width:100%;
-  padding: 100px;
-  padding-bottom:400px;
-  padding-right:1000px;
+  padding: 200px;
+  padding-left:flex;
   white-space:nowrap;
+  overflow: hidden;
 }
 
 .list table tbody tr {

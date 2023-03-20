@@ -1,6 +1,5 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import Navbar from '@/components/Navbar.vue'
 </script>
 
 <template>
@@ -12,11 +11,8 @@ import Navbar from '@/components/Navbar.vue'
 </template>
 
 <script>
-export default {
-  name: 'App',
-  components: Navbar
-}
+import Navbar from '@/components/Navbar.vue'
 </script>
 
-<style scoped>
+<style>
 </style>

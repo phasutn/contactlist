@@ -1,26 +1,19 @@
 <template>
   <main>
-    <div class="container">
+    <div class="container" >
       <div>
         <h1 style="text-align: center;">User Info<br></h1>
         <div class="list">
           <table>
-                <tr>
-                  <th>Username</th>
-                  <th>Password [MD5]</th>
-                </tr>
-            <tbody>
-                <tr v-for="auser in filterUsers" v-bind:key="auser.id">
-                  <td>{{auser.username}}</td>
-                  <td>{{auser.password}}</td>
-                  <td>
-                    <!-- <router-link :to="{path:'updateuser' , name: 'UpdateUser', params: {userId: auser._id}}">
-                      <button type="button" class="btn btn-warning">Edit</button>
-                    </router-link> -->
-                    <button @click="deleteUser(auser._id)" class="btn btn-danger">Delete</button>
-                  </td>
-                </tr>
-            </tbody>
+            <tr>
+              <th>Username</th>
+              <th style="text-align: center">Password [MD5]</th>
+            </tr>
+            <tr v-for="auser in filterUsers" v-bind:key="auser.id">
+              <td>{{auser.username}}</td>
+              <td>{{auser.password}}</td>
+              <td><button @click="deleteUser(auser._id)" class="btn btn-danger">Delete</button></td>
+            </tr>
           </table>
         </div>
       </div>
@@ -94,6 +87,7 @@ export default {
 th{
   text-decoration: underline 3px;
 }
+
 
 
 </style>

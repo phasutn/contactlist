@@ -3,23 +3,23 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <router-link to="/contactlist" class="nav-link nav-text" style="color: white;">CONTACTLIST</router-link>
+          <router-link to="/contactlist" class="nav-link" style="color: white;">CONTACTLIST</router-link>
         </li>
 
         <li class="nav-item">
-          <router-link to="/contactadd" class="nav-link nav-text" style="color: white;">ADD</router-link>
+          <router-link to="/contactadd" class="nav-link" style="color: white;">ADD</router-link>
         </li>
 
         <li class="nav-item">
-          <router-link to="/register" class="nav-link nav-text" style="color: white;">REGISTER</router-link>
+          <router-link to="/register" class="nav-link" style="color: white;">REGISTER</router-link>
         </li>
         
         <li class="nav-item">
-          <router-link to="/login" class="nav-link nav-text" style="color: white;">LOGIN</router-link>
+          <router-link to="/login" class="nav-link" style="color: white;">LOGIN</router-link>
         </li>   
 
         <li class="nav-item">
-          <router-link to="/logout" class="nav-link nav-text" style="color: white;">LOGOUT</router-link>
+          <router-link to="/logout" class="nav-link" style="color: white;">LOGOUT</router-link>
         </li>
       </ul>
     </div>
@@ -29,7 +29,7 @@
 
 
     
-    <script>
+<script>
 import Register from '@/views/Register.vue'
 import Login from '@/views/Login.vue'
 
@@ -66,10 +66,5 @@ export default {
     width: 100%;
     z-index: 1;
   }
-
-  .nav-text{
-    font-family: "Tilt Warp";
-  }
-
 
 </style>
