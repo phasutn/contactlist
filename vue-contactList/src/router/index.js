@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../views/Login.vue'
+import Logout from '../views/Logout.vue'
+import NotLoggedIn from '../views/NotLoggedIn.vue'
 import ContactAdd from '../views/ContactAdd.vue'
 import ContactList from '../views/ContactList.vue'
 import ContactUpdate from '../views/ContactUpdate.vue'
@@ -19,14 +21,29 @@ const router = createRouter({
       redirect: '/login'
     },
     {
-      path: '/contactadd',
-      name: 'contactadd',
-      component: ContactAdd
+      path: '/logout',
+      name: 'logout',
+      component: Logout
+    },
+    {
+      path: '/notloggedin',
+      name: 'notloggedin',
+      component: NotLoggedIn
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register
     },
     {
       path: '/contactlist',
       name: 'contactlist',
-      component: ContactList
+      component: ContactList,
+    },
+    {
+      path: '/contactadd',
+      name: 'contactadd',
+      component: ContactAdd
     },
     {
       path: '/contactupdate/:contactId',
@@ -37,11 +54,6 @@ const router = createRouter({
       path: '/userinfo',
       name: 'userinfo',
       component: UserInfo
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: Register
     }
   ]
 })

@@ -3,12 +3,12 @@
     <div class="container">
       <div class="loginPanel">
         <h1>REGISTER</h1><br/>
-          <div>
-            <p class="info">USERNAME</p>
+          <div class="info">
+            <p class="infoText">USERNAME</p>
             <input type="text" placeholder="Username" v-model="User.username"/>
             <div id="username_empty" >Invalid Username</div>
             <div id="username_exists" >Username already exists</div>
-            <p class="info">PASSWORD</p>
+            <p class="infoText">PASSWORD</p>
             <input type="password" placeholder="Password" v-model="User.password"/>
             <div id="password_empty" >Invalid Password</div>
           </div><br/>
@@ -51,7 +51,7 @@ export default {
             user_exists.style.display = "block"
             return
           } else {
-            axios.post('http://127.0.0.1:5001/users', this.User)
+            axios.post('http://localhost:5001/users', this.User)
               .then((response) => {
                 console.log(response)
                 this.$router.push('/login')

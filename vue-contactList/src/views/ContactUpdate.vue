@@ -4,13 +4,13 @@
       <div class="editPanel">
         <h1 style="text-align: center;">Edit Contact<br></h1>
           <div>
-            <p class="info">Contact ID (required)</p>
+            <p class="info">Contact ID (required)<span class="required-label">*</span></p>
             <input type="number" placeholder="Contact ID" v-model="Contact.contactid"/>
-            <p class="info">First Name (required)</p>
+            <p class="info">First Name (required)<span class="required-label">*</span></p>
             <input type="text" placeholder="First Name" v-model="Contact.firstname"/>
-            <p class="info">Last Name (required)</p>
+            <p class="info">Last Name (required)<span class="required-label">*</span></p>
             <input type="text" placeholder="Last Name" v-model="Contact.lastname"/>
-            <p class="info">Mobile Number (required)</p>
+            <p class="info">Mobile Number (required)<span class="required-label">*</span></p>
             <input type="text" placeholder="Mobile Number" v-model="Contact.mobileNo"/>
             <p class="info">Email</p>
             <input type="text" placeholder="Email" v-model="Contact.email"/>
@@ -49,7 +49,8 @@ export default {
   methods: {
     async updateToAPI() {
       let info_missing = document.getElementById('info_missing')
-      if(this.Contact.contactid.length == 0 || this.Contact.firstname.length == 0 || this.Contact.lastname.length == 0 || this.Contact.mobileNo.length == 0){
+      //Check for required input & correct format
+      if(this.Contact.contactid.length == 0 || this.Contact.firstname.length == 0 || this.Contact.lastname.length == 0 || this.Contact.mobileNo.length != 10 || /^\d+$/.test(this.Contact.mobileNo) == false){
           info_missing.style.display = "block";
           return;
       }
@@ -66,6 +67,23 @@ export default {
     }
   },
   mounted(){
+    //Authentication
+    axios.get('http://127.0.0.1:5001/loggedin', {
+      params: {
+        token: localStorage.getItem('AuthToken'),
+      }
+    })
+    .then((response) => {
+      console.log(response.data)
+    })
+    .catch((error) => {
+      console.log(error)
+      if(error.response.status && error.response.status == 401){
+        this.$router.push('/notloggedin');
+      }
+    })
+
+    //
     axios.get('http://127.0.0.1:5001/contacts/'+this.$route.params.contactId)
     .then((response)=>{
       console.log(response.data)
