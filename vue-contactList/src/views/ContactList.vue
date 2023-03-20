@@ -5,7 +5,7 @@ Point Tipok
       <div>
         <h1 style="text-align:center">CONTACT LIST<br></h1>
         <div class="list">
-          <input type="text" v-model="search">
+          <input type="text" placeholder="Search name" v-model="search">
           <table>
             <tbody>
               <tr v-for="(acontact, index) in filterContacts" :key="acontact.id">
@@ -78,7 +78,8 @@ export default {
   computed :{
     filterContacts: function(){
       return this.Contacts.filter((contact)=>{
-        return contact.firstname.match(this.search)
+        return (contact.firstname.toLowerCase().indexOf(this.search.toLowerCase()) > -1 && contact.firstname.toLowerCase().startsWith(this.search.toLowerCase())) ||
+               (contact.lastname.toLowerCase().indexOf(this.search.toLowerCase()) > -1 && contact.lastname.toLowerCase().startsWith(this.search.toLowerCase()));
       })
     }
   },
