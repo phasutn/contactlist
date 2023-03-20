@@ -3,12 +3,12 @@
     <div class="container">
       <div class="loginPanel">
         <h1>LOGIN</h1><br/>
-          <div>
-            <p class="info" >USERNAME</p>
+          <div class="info">
+            <p class="infoText">USERNAME</p>
             <input v-model="username" type="text" placeholder="Username">
             <div id="username_empty" >Please enter your username</div>
             <div id="username_incorrect" >Incorrect username or password</div>
-            <p class="info" placeholder="Password">PASSWORD</p>
+            <p class="infoText">PASSWORD</p>
             <input v-model="password" type="password" placeholder="Password">
             <div id="password_empty" class="input_error">Please enter your password</div>
           </div><br/>
@@ -63,7 +63,6 @@ export default{
           //JWT in the localStorage so that it can be used
           //to identify this user as loggedin.
           localStorage.setItem('AuthToken', result.data.token);
-          console.log(localStorage.getItem('AuthToken'));
           this.$router.push('/contactlist');
         }
       })

@@ -47,22 +47,21 @@ export default {
     })
       .then((response) => {
         console.log(response.data)
-        axios.get('http://127.0.0.1:5001/users')
-          .then((response)=>{
-            console.log(response.data)
-            this.Users = response.data
-          })
-          .catch((error)=>{
-            console.log(error)
-          })
       })
       .catch((error) => {
         console.log(error)
         if(error.response.status && error.response.status == 401){
-          this.$router.push('/login');
+          this.$router.push('/notloggedin');
         }
       })
-
+    axios.get('http://127.0.0.1:5001/users')
+      .then((response)=>{
+        console.log(response.data)
+        this.Users = response.data
+      })
+      .catch((error)=>{
+        console.log(error)
+      })
   },
   computed :{
     filterUsers: function(){
