@@ -16,9 +16,9 @@ Point Tipok
                       <div>Mobile: {{acontact.mobileNo}}</div>
                       <div>Email: {{acontact.email}}</div>
                       <div>Facebook: {{acontact.facebook}}</div>
-                      <div>
+                      <div style="display: flex; justify-content: center">
                         <router-link :to="{path:'/contactupdate' , name: 'contactupdate', params: {contactId: acontact._id}}">
-                          <button type="button" class="btn btn-warning">UPDATE</button>
+                        <button type="button" class="btn btn-warning">UPDATE</button>
                         </router-link >
                         <button @click="deleteContact(acontact._id)" class="btn btn-danger">DELETE</button>
                       </div>
