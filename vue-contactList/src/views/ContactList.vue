@@ -10,7 +10,7 @@
                 </tr>
             <tbody>
                 <tr v-for="acontact in filterContacts" v-bind:key="acontact.id">
-                  <img v-bind:src=acontact.imageUrl style="max-width: 00px; max-height: 300px;"/>
+                  <img v-bind:src=acontact.imageUrl style="max-width: 100px; max-height: 300px;"/>
                   <tr>
                     <td>{{acontact.firstname}}</td>
                     <td>{{acontact.lastname}}</td><br>
