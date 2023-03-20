@@ -4,13 +4,13 @@
       <div class="editPanel">
         <h1 style="text-align: center;">Edit Contact<br></h1>
           <div>
-            <p class="info">Contact ID</p>
-            <input type="number" placeholder="Contact ID" v-model="Contact.contactId"/>
-            <p class="info">First Name</p>
+            <p class="info">Contact ID (required)</p>
+            <input type="number" placeholder="Contact ID" v-model="Contact.contactid"/>
+            <p class="info">First Name (required)</p>
             <input type="text" placeholder="First Name" v-model="Contact.firstname"/>
-            <p class="info">Last Name</p>
+            <p class="info">Last Name (required)</p>
             <input type="text" placeholder="Last Name" v-model="Contact.lastname"/>
-            <p class="info">Mobile Number</p>
+            <p class="info">Mobile Number (required)</p>
             <input type="text" placeholder="Mobile Number" v-model="Contact.mobileNo"/>
             <p class="info">Email</p>
             <input type="text" placeholder="Email" v-model="Contact.email"/>
@@ -18,9 +18,10 @@
             <input type="text" placeholder="Facebook" v-model="Contact.facebook"/>
             <p class="info">Image Url</p>
             <input type="text" placeholder="Image Url" v-model="Contact.imageUrl"/>
-            <router-link to = "/contactlist">
-              <button type="submit" @click="updateToAPI">Save</button>
-            </router-link>
+            <br>
+            <div id="info_missing">All required field must be filled in</div>
+            <br>
+            <button type="submit" @click="updateToAPI">Save</button>
           </div>
       </div>
     </div>
@@ -46,11 +47,18 @@ export default {
     }
   },
   methods: {
-    updateToAPI() {
-      console.log(this.Contact)
+    async updateToAPI() {
+      let info_missing = document.getElementById('info_missing')
+      if(this.Contact.contactid.length == 0 || this.Contact.firstname.length == 0 || this.Contact.lastname.length == 0 || this.Contact.mobileNo.length == 0){
+          info_missing.style.display = "block";
+          return;
+      }
+      else info_missing.style.display = "none";
+      
       axios.post('http://127.0.0.1:5001/contacts/'+this.$route.params.contactId, this.Contact)
       .then((response)=>{
         console.log(response)
+        this.$router.push('/contactlist')
       })
       .catch((error)=>{
         console.log(error)
@@ -71,5 +79,12 @@ export default {
 </script>
 
 <style>
-
+#info_missing{
+  margin-left: 2px;
+  opacity: 60%;
+  text-align: left;
+  font-size: 85%;
+  color:red;
+  display: none;
+}
 </style>

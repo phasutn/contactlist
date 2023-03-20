@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../views/Login.vue'
+import ContactAdd from '../views/ContactAdd.vue'
 import ContactList from '../views/ContactList.vue'
 import ContactUpdate from '../views/ContactUpdate.vue'
 import UserInfo from '../views/UserInfo.vue'
@@ -16,6 +17,11 @@ const router = createRouter({
     {
       path: '/',
       redirect: '/login'
+    },
+    {
+      path: '/contactadd',
+      name: 'contactadd',
+      component: ContactAdd
     },
     {
       path: '/contactlist',
