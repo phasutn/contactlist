@@ -1,16 +1,85 @@
 
 'use strict'
 var mongoose = require('mongoose')
+var md5 = require('md5')
+var jwt = require('jsonwebtoken')
+
+
 User = mongoose.model('Users')
 
 exports.listAllUsers = function(req, res){
-    var query = { sort: { firstName: 1 } }
-    User.find({}, null, query, function(err, user){
+    const username = req.query.username;
+
+    var query = { sort: { username: 1 } }
+
+    //for finding with just username
+    //used for registration
+    if(username){
+        query = {username: username}
+    }
+
+    User.find(query, function(err, user){
         if(err) throw err
         //console.log(user)
         res.json(user)
     })
 }
+
+exports.matchAUser = async function(req, res){
+    const username = req.body.username;
+    const password = req.body.password;
+
+    try{
+        //Empty username or password
+        if(!username || !password){
+            return res.status(401).json({ 
+                message: 'Invalid username or password', errorType: 'LoginEmpty'
+            });
+        }
+
+        //Find user with matching username first
+        const user = await User.findOne({username});
+        if(!user){
+            return res.status(401).json({ 
+                message: 'Invalid username or password', errorType: 'LoginFail' 
+            });
+        }
+        //Then Match the password
+        let match = null; 
+        if (md5(password) == user.password) match = true;
+        else match = false;
+
+        if(!match){
+            return res.status(401).json({ 
+                message: 'Invalid username or password', errorType: 'LoginFail'
+            });
+        }
+        // Generate a JWT token with the user's ID and send it in the response
+        const token = jwt.sign({ userId: user._id }, process.env.secretKey);
+        return res.json({ token, success: true });
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: 'Unexpected Error', success: false });
+    }
+}
+
+exports.loggedin = function(req, res, next){
+    const AuthToken = req.query.token;
+    
+    if(!AuthToken){
+        return res.status(401).json({message: 'Not Logged In', errorType: 'NotLoggedIn'})
+    } else {
+        jwt.verify(AuthToken, process.env.secretKey, function(err){
+            if(err){
+                return res.status(401).json({message: 'UnAuthenticated User', errorType: 'AuthFail'})
+            } else {
+                return res.json({message: 'Authentication Successful'})
+            }
+        })
+    }
+}
+
 
 exports.createAUser = function(req, res){
     var newUser = new User(req.body)
@@ -21,12 +90,26 @@ exports.createAUser = function(req, res){
     })
 }
 
-exports.readAUser = function(req, res){
+exports.readAUserID = function(req, res){
     //console.log(req.params.userId)
     User.findById(req.params.userId, function(err, user){
         if(err) throw err
         res.json(user)
     })
+}
+
+exports.readAUser = function(req, res){
+    const username = req.query.username;
+    const password = md5(req.query.password);
+
+    User.findOne({ username: username, password: password }, function(err, user){
+        if (err) throw err;
+        if (!user) {
+            return res.status(404).json({ message: 'User does not exist'});
+          }
+
+        res.json(user);
+    });
 }
 
 exports.deleteAUser = function(req, res){
