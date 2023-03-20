@@ -29,4 +29,13 @@ module.exports = function(app){
         .get(contactList.readAContact)
         .delete(contactList.deleteAContact)
         .post(contactList.updateAContact)
+
+    app.route('/addcontact')
+        .post(contactList.createAContact)
+
+    app.route('/updatecontact/:contactId')
+        .post(contactList.updateAContact)
+
+    app.route('/deletecontact/:contactId')
+        .delete(contactList.deleteAContact)
 }

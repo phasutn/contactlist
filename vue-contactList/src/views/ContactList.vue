@@ -5,29 +5,30 @@ Point Tipok
       <div>
         <h1 style="text-align:center">CONTACT LIST<br></h1>
         <div class="list">
-          <table>
-            <tbody>
-              <tr v-for="(acontact, index) in filterContacts" :key="acontact.id">
-                <div class="contactBox">
-                  <div class="contactBoxContent">
-                    <img :src="acontact.imageUrl" class="imageHolder">
-                    <div style="margin: auto">
-                      <div>{{acontact.firstname}} {{acontact.lastname}}</div>
-                      <div>Mobile: {{acontact.mobileNo}}</div>
-                      <div>Email: {{acontact.email}}</div>
-                      <div>Facebook: {{acontact.facebook}}</div>
-                      <div>
-                        <router-link :to="{path:'/contactupdate' , name: 'contactupdate', params: {contactId: acontact._id}}">
-                          <button type="button" class="btn btn-warning">UPDATE</button>
-                        </router-link >
-                        <button @click="deleteContact(acontact._id)" class="btn btn-danger">DELETE</button>
+          <input type="text" v-model="search">
+            <table>
+              <tbody>
+                <tr v-for="(acontact, index) in filterContacts" :key="acontact.id">
+                  <div class="contactBox">
+                    <div class="contactBoxContent">
+                      <img :src="acontact.imageUrl" class="imageHolder">
+                      <div style="margin: auto">
+                        <div>{{acontact.firstname}} {{acontact.lastname}}</div>
+                        <div>Mobile: {{acontact.mobileNo}}</div>
+                        <div>Email: {{acontact.email}}</div>
+                        <div>Facebook: {{acontact.facebook}}</div>
+                        <div>
+                          <router-link :to="{path:'/contactupdate' , name: 'contactupdate', params: {contactId: acontact._id}}">
+                            <button type="button" class="btn btn-warning">UPDATE</button>
+                          </router-link >
+                          <button @click="deleteContact(acontact._id)" class="btn btn-danger">DELETE</button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <td v-if="index % 2 === 0"></td>
-              </tr>
-            </tbody>
+                  <td v-if="index % 2 === 0"></td>
+                </tr>
+              </tbody>
           </table>
         </div>
       </div>
