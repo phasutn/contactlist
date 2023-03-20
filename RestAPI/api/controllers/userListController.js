@@ -65,7 +65,7 @@ exports.matchAUser = async function(req, res){
 }
 
 exports.loggedin = function(req, res, next){
-    const AuthToken = req.body.token;
+    const AuthToken = req.query.token;
     
     if(!AuthToken){
         return res.status(401).json({message: 'Not Logged In', errorType: 'NotLoggedIn'})
