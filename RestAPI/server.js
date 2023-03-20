@@ -1,5 +1,6 @@
 const cors = require('cors');
 var express = require('express')
+require('dotenv').config();
 app = express()
 app.use(cors())
 
@@ -28,6 +29,7 @@ mongoose.createConnection('mongodb://127.0.0.1/ContactDb', function(error){
     if(error) throw error
     console.log('ContactDb Successfully connected');
 })
+
 
 
 

@@ -2,6 +2,8 @@
 'use strict'
 var mongoose = require('mongoose')
 var md5 = require('md5')
+var jwt = require('jsonwebtoken')
+
 
 User = mongoose.model('Users')
 
@@ -23,32 +25,71 @@ exports.listAllUsers = function(req, res){
     })
 }
 
-exports.matchAUser = function(req, res){
+// exports.matchAUser = function(req, res){
+//     const username = req.query.username;
+//     const password = req.query.password;
+
+//     let query = { sort: { username: 1 } }
+
+//     //if provide username and password with 
+//     //{link}/users?username={}&password={}
+//     //change the query else just list nothing
+//     if (username && password) {
+//         query = {
+//             username: username,
+//             password: md5(password)
+//         };
+//     }
+//     else{
+//         query = {
+//             username: null,
+//             password: null
+//         };
+//     }
+//     User.find(query, function(err, user){
+//         if(err) throw err
+//         //console.log(user)
+//         res.json(user)
+//     })
+// }
+
+exports.matchAUser = async function(req, res){
     const username = req.query.username;
     const password = req.query.password;
 
-    let query = { sort: { username: 1 } }
+    try{
+        //Empty username or password
+        if(username.length == 0 || password.length == 0){
+            return res.status(401).json({ 
+                message: 'Invalid username or password', errorType: 'LoginEmpty'
+            });
+        }
 
-    //if provide username and password with 
-    //{link}/users?username={}&password={}
-    //change the query else just list all
-    if (username && password) {
-        query = {
-            username: username,
-            password: md5(password)
-        };
+        //Find user with matching username first
+        const user = await User.findOne({username});
+        if(!user){
+            return res.status(401).json({ 
+                message: 'Invalid username or password', errorType: 'LoginFail' 
+            });
+        }
+        //Then Match the password
+        let match = null; 
+        if (md5(password) == user.password) match = true;
+        else match = false;
+
+        if(!match){
+            return res.status(401).json({ 
+                message: 'Invalid username or password', errorType: 'LoginFail'
+            });
+        }
+        // Generate a JWT token with the user's ID and send it in the response
+        const token = jwt.sign({ userId: user._id }, process.env.secretKey);
+        return res.json({ token, success: true });
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: 'Unexpected Error', success: false });
     }
-    else{
-        query = {
-            username: null,
-            password: null
-        };
-    }
-    User.find(query, function(err, user){
-        if(err) throw err
-        //console.log(user)
-        res.json(user)
-    })
 }
 
 
