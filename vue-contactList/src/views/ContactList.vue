@@ -5,6 +5,7 @@ Point Tipok
       <div>
         <h1 style="text-align:center">CONTACT LIST<br></h1>
         <div class="list">
+          <input type="text" v-model="search">
           <table>
             <tbody>
               <tr v-for="(acontact, index) in filterContacts" :key="acontact.id">
@@ -24,8 +25,8 @@ Point Tipok
                       </div>
                     </div>
                   </div>
+                  <td v-if="index % 2 === 0"></td>
                 </div>
-                <td v-if="index % 2 === 0"></td>
               </tr>
             </tbody>
           </table>
