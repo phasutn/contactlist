@@ -52,14 +52,19 @@ export default{
       }
     
       
-      let result = await axios.post("http://localhost:5001/login",{
+      let result = await axios.post("http://localhost:5001/login", {
             username: this.username,
             password: this.password
       })
       .then((result) => {
         console.log(result);
         if(result.data.success == true){
-          //this.$router.push('/contactlist');
+          //Set 'AuthToken' to the token generated from
+          //JWT in the localStorage so that it can be used
+          //to identify this user as loggedin.
+          localStorage.setItem('AuthToken', result.data.token);
+          console.log(localStorage.getItem('AuthToken'));
+          this.$router.push('/contactlist');
         }
       })
       .catch((error) => {

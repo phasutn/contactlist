@@ -64,6 +64,22 @@ exports.matchAUser = async function(req, res){
     }
 }
 
+exports.loggedin = function(req, res, next){
+    const AuthToken = req.body.token;
+    
+    if(!AuthToken){
+        return res.status(401).json({message: 'Not Logged In', errorType: 'NotLoggedIn'})
+    } else {
+        jwt.verify(AuthToken, process.env.secretKey, function(err){
+            if(err){
+                return res.status(401).json({message: 'UnAuthenticated User', errorType: 'AuthFail'})
+            } else {
+                return res.json({message: 'Authentication Successful'})
+            }
+        })
+    }
+}
+
 
 exports.createAUser = function(req, res){
     var newUser = new User(req.body)

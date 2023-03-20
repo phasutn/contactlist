@@ -19,14 +19,20 @@ const router = createRouter({
       redirect: '/login'
     },
     {
-      path: '/contactadd',
-      name: 'contactadd',
-      component: ContactAdd
+      path: '/register',
+      name: 'register',
+      component: Register
     },
     {
       path: '/contactlist',
       name: 'contactlist',
-      component: ContactList
+      component: ContactList,
+      meta: {requiresAuth: true}
+    },
+    {
+      path: '/contactadd',
+      name: 'contactadd',
+      component: ContactAdd
     },
     {
       path: '/contactupdate/:contactId',
@@ -37,11 +43,6 @@ const router = createRouter({
       path: '/userinfo',
       name: 'userinfo',
       component: UserInfo
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: Register
     }
   ]
 })

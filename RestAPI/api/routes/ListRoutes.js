@@ -18,6 +18,9 @@ module.exports = function(app){
     app.route('/login')
         .post(userList.matchAUser)
 
+    app.route('/loggedin')
+        .get(userList.loggedin)
+
     app.route('/contacts')
         .get(contactList.listAllContacts)
         .post(contactList.createAContact)
