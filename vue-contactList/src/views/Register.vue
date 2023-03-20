@@ -51,7 +51,7 @@ export default {
             user_exists.style.display = "block"
             return
           } else {
-            axios.post('http://127.0.0.1:5001/users', this.User)
+            axios.post('http://localhost:5001/users', this.User)
               .then((response) => {
                 console.log(response)
                 this.$router.push('/login')

@@ -52,7 +52,10 @@ export default{
       }
     
       
-      let result = await axios.get(`http://localhost:5001/auser?username=${this.username}&password=${this.password}`)
+      let result = await axios.post("http://localhost:5001/login",{
+            username: this.username,
+            password: this.password
+      })
       .then((result) => {
         console.log(result);
         if(result.data.success == true){

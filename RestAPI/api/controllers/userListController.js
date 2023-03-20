@@ -25,41 +25,13 @@ exports.listAllUsers = function(req, res){
     })
 }
 
-// exports.matchAUser = function(req, res){
-//     const username = req.query.username;
-//     const password = req.query.password;
-
-//     let query = { sort: { username: 1 } }
-
-//     //if provide username and password with 
-//     //{link}/users?username={}&password={}
-//     //change the query else just list nothing
-//     if (username && password) {
-//         query = {
-//             username: username,
-//             password: md5(password)
-//         };
-//     }
-//     else{
-//         query = {
-//             username: null,
-//             password: null
-//         };
-//     }
-//     User.find(query, function(err, user){
-//         if(err) throw err
-//         //console.log(user)
-//         res.json(user)
-//     })
-// }
-
 exports.matchAUser = async function(req, res){
-    const username = req.query.username;
-    const password = req.query.password;
+    const username = req.body.username;
+    const password = req.body.password;
 
     try{
         //Empty username or password
-        if(username.length == 0 || password.length == 0){
+        if(!username || !password){
             return res.status(401).json({ 
                 message: 'Invalid username or password', errorType: 'LoginEmpty'
             });
