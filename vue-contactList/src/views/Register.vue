@@ -3,12 +3,12 @@
     <div class="container">
       <div class="loginPanel">
         <h1>REGISTER</h1><br/>
-          <div>
-            <p class="info">USERNAME</p>
+          <div class="info">
+            <p class="infoText">USERNAME</p>
             <input type="text" placeholder="Username" v-model="User.username"/>
             <div id="username_empty" >Invalid Username</div>
             <div id="username_exists" >Username already exists</div>
-            <p class="info">PASSWORD</p>
+            <p class="infoText">PASSWORD</p>
             <input type="password" placeholder="Password" v-model="User.password"/>
             <div id="password_empty" >Invalid Password</div>
           </div><br/>

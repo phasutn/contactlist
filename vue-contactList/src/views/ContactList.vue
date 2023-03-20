@@ -1,36 +1,32 @@
+Point Tipok
 <template>
   <main>
-    <div class="container">
+    <div id="contactlist">
       <div>
-        <h1 style="text-align: center;">Contact List<br></h1>
+        <h1 style="text-align:center">CONTACT LIST<br></h1>
         <div class="list">
           <table>
-                <tr>
-                  <th>Info</th>
-                </tr>
             <tbody>
-                <tr v-for="acontact in filterContacts" v-bind:key="acontact.id">
-                  <img v-bind:src=acontact.imageUrl style="max-width: 00px; max-height: 300px;"/>
-                  <tr>
-                    <td>{{acontact.firstname}}</td>
-                    <td>{{acontact.lastname}}</td><br>
-                  </tr>
-                  <tr>
-                    <td>Mobile:</td><td>{{acontact.mobileNo}}</td><br>
-                  </tr>
-                  <tr>
-                    <td>Email:</td><td>{{acontact.email}}</td><br>
-                  </tr>
-                  <tr>
-                    <td>Facebook:</td><td>{{acontact.facebook}}</td>
-                  </tr>
-                  <td>
-                    <router-link :to="{path:'/contactupdate' , name: 'contactupdate', params: {contactId: acontact._id}}">
-                      <button type="button" class="btn btn-warning">Update User</button>
-                    </router-link >
-                    <button @click="deleteContact(acontact._id)" class="btn btn-danger">Delete User</button>
-                  </td>
-                </tr>
+              <tr v-for="(acontact, index) in filterContacts" :key="acontact.id">
+                <div class="contactBox">
+                  <div class="contactBoxContent">
+                    <img :src="acontact.imageUrl" class="imageHolder">
+                    <div style="margin: auto">
+                      <div>{{acontact.firstname}} {{acontact.lastname}}</div>
+                      <div>Mobile: {{acontact.mobileNo}}</div>
+                      <div>Email: {{acontact.email}}</div>
+                      <div>Facebook: {{acontact.facebook}}</div>
+                      <div>
+                        <router-link :to="{path:'/contactupdate' , name: 'contactupdate', params: {contactId: acontact._id}}">
+                          <button type="button" class="btn btn-warning">UPDATE</button>
+                        </router-link >
+                        <button @click="deleteContact(acontact._id)" class="btn btn-danger">DELETE</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <td v-if="index % 2 === 0"></td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -52,6 +48,23 @@ export default {
     }
   },
   mounted() {
+    //Authentication
+    axios.get('http://127.0.0.1:5001/loggedin', {
+      params: {
+        token: localStorage.getItem('AuthToken'),
+      }
+    })
+    .then((response) => {
+      console.log(response.data)
+    })
+    .catch((error) => {
+      console.log(error)
+      if(error.response.status && error.response.status == 401){
+        this.$router.push('/notloggedin');
+      }
+    })
+
+    //
     axios.get('http://127.0.0.1:5001/contacts')
     .then((response)=>{
       console.log(response.data)
@@ -84,5 +97,42 @@ export default {
 </script>
 
 <style>
+.card {
+  margin-bottom: 20px;
+}
+#contactlist {
+  display: flex;
+  font-family: "Tilt Warp";
+  color: black;
+  background-color: aliceblue;
+  border-radius: 16px 16px 16px 16px;
+  padding: 200px;
+  padding-left:flex;
+  white-space:nowrap;
+  overflow: hidden;
+}
 
+.list table tbody tr {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: flex;
+}
+
+.contactBox{
+  padding: 10px;
+}
+
+.contactBoxContent{
+  border: lightblue 10px solid;
+  border-radius: 8px;
+}
+
+.imageHolder{
+    justify-content: center;
+    max-width:  150px;
+    max-height: 150px;
+    min-width:  150px;
+    min-height: 150px;
+    object-fit: cover;
+}
 </style>
