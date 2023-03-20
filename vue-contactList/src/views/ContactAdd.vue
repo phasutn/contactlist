@@ -10,7 +10,7 @@ Point Tipok
           <label for="name" class="col-sm-2 col-form-label">Contact ID:<span class="required-label">*</span>
   </label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="contactid" v-model="Contact.contactid" placeholder="Enter contact ID">
+            <input type="number" class="form-control" id="contactid" v-model="Contact.contactid" placeholder="Enter contact ID">
           </div>
         </div>
 
@@ -31,7 +31,7 @@ Point Tipok
         <div class="form-group-row">
           <label for="email" class="col-sm-2 col-form-label">Mobile Number:<span class="required-label">*</span></label>
           <div class="col-sm-10">
-            <input type="email" class="form-control" id="mobileNo" v-model="Contact.mobileNo" placeholder="Enter mobile number">
+            <input type="text" class="form-control" id="mobileNo" v-model="Contact.mobileNo" placeholder="Enter mobile number">
           </div>
         </div>
 
@@ -86,7 +86,8 @@ export default {
   methods: {
     async addContact() {
         let info_missing = document.getElementById('info_missing')
-        if(this.Contact.contactid.length == 0 || this.Contact.firstname.length == 0 || this.Contact.lastname.length == 0 || this.Contact.mobileNo.length != 10){
+        //Check for required input & correct format
+        if(this.Contact.contactid.length == 0 || this.Contact.firstname.length == 0 || this.Contact.lastname.length == 0 || this.Contact.mobileNo.length != 10 || /^\d+$/.test(this.Contact.mobileNo) == false){
             info_missing.style.display = "block";
             return;
         }

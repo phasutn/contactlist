@@ -16,8 +16,8 @@ export default{
   name: 'Logout',
   methods:{
     logout(){
-    localStorage.removeItem('AuthToken');
-    this.$router.push('/login');
+      localStorage.removeItem('AuthToken');
+      this.$router.push('/login');
     }
   }
 };

@@ -49,7 +49,8 @@ export default {
   methods: {
     async updateToAPI() {
       let info_missing = document.getElementById('info_missing')
-      if(this.Contact.contactid.length == 0 || this.Contact.firstname.length == 0 || this.Contact.lastname.length == 0 || this.Contact.mobileNo.length == 0){
+      //Check for required input & correct format
+      if(this.Contact.contactid.length == 0 || this.Contact.firstname.length == 0 || this.Contact.lastname.length == 0 || this.Contact.mobileNo.length != 10 || /^\d+$/.test(this.Contact.mobileNo) == false){
           info_missing.style.display = "block";
           return;
       }
