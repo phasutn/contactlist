@@ -26,11 +26,35 @@ export default{
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
+      Bob: {
+        username: 'bob',
+        password: '1234',
+      }
     }
   },
+  created(){
+    this.bobAccountRegister();
+  },
   methods: {
-    
+  async bobAccountRegister(){
+    axios.get(`http://localhost:5001/users?username=${this.Bob.username}`)
+        .then((result) => {
+          //Check if username is unique
+          if (result.data.length != 0) {
+            return
+          } else {
+            axios.post('http://localhost:5001/users', this.Bob)
+              .then((response) => {
+                console.log(response)
+              })
+              .catch((error) => {
+                console.log(error)
+              })
+          }
+      })
+    },
+  
   async login() {
       let user_empty = document.getElementById('username_empty')
       let pass_empty = document.getElementById('password_empty')
